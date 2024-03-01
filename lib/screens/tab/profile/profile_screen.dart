@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo_app/models/category/category_model.dart';
 import 'package:todo_app/models/profile_settings.dart';
 import 'package:todo_app/screens/tab/profile/widgets/profile_items.dart';
 import 'package:todo_app/utils/colors/app_colors.dart';
@@ -7,12 +8,15 @@ import 'package:todo_app/utils/images/app_images.dart';
 import 'package:todo_app/utils/size/size_utils.dart';
 import 'package:todo_app/utils/styles/app_text_style.dart';
 
+import '../../routes.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
+
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List<ProfileSettings> account = [
@@ -106,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             4.getH(),
-            ProfileItems(iconPath: AppImages.settings, title: "App Settings", onTab: (){},),
+            ProfileItems(iconPath: AppImages.settings, title: "App Settings", onTab: (){Navigator.pushNamed(context, RouteNames.addCategory);},),
             16.getH(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),

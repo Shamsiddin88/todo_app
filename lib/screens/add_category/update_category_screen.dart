@@ -8,22 +8,24 @@ import "package:flutter_svg/svg.dart";
 import '../../models/category/category_model.dart';
 import '../../utils/colors/app_colors.dart';
 
-class AddCategoryScreen extends StatefulWidget {
-  const AddCategoryScreen(
-      {super.key});
+class UpdateCategoryScreen extends StatefulWidget {
+   const UpdateCategoryScreen(
+      {super.key, required this.id});
+
+   final int id;
+
 
 
   @override
-  State<AddCategoryScreen> createState() => _AddCategoryScreenState();
+  State<UpdateCategoryScreen> createState() => _UpdateCategoryScreenState();
 }
-
 
 CategoryModel categoryModel = CategoryModel.initialValue;
 
-class _AddCategoryScreenState extends State<AddCategoryScreen> {
+class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
   final TextEditingController nameController = TextEditingController();
-  int activeIconIndex = -1;
-  int activeColorIndex = -1;
+  int activeIconIndex = 0;
+  int activeColorIndex = 0;
 
   List<String> icons = [
     AppImages.grocery,
@@ -50,8 +52,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
 
   List <CategoryModel> categories = [];
 
+
   _init ()async{
-    categories=await LocalDatabase.getAllCategories();
+    await LocalDatabase.updateCategory(categoryModel, 10);
     setState(() {
 
     });
@@ -63,6 +66,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +75,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           70.getH(),
           Text(
-            "Create new category",
+            "Update category",
             style: AppTextStyle.latoBold.copyWith(fontSize: 20.w),
           ),
           20.getH(),
@@ -198,8 +202,11 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
               TextButton(
                 onPressed: () async {
                   print(categoryModel.iconPath);
+                  print(categoryModel.color);
+                  print(categoryModel.name);
                   if (categoryModel.canAddCategoryToDatabase()){
-                    await LocalDatabase.insertCategory(categoryModel);
+
+                    await LocalDatabase.updateCategory(categoryModel,widget.id!);
                     _init();
                     Navigator.pop(context);
                   }
@@ -213,13 +220,36 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                     color: AppColors.c_8687E7,
                   ),
                   child: Text(
-                    "Create Category",
+                    "Update Category",
                     style: AppTextStyle.latoRegular,
                   ),
                 ),
               ),
             ],
-          )
+          ),
+          TextButton(
+            onPressed: () async {
+
+                await LocalDatabase.deleteCategory(widget.id!);
+                _init();
+                Navigator.pop(context);
+
+
+            },
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                  horizontal: 20.w, vertical: 17.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.w),
+                color: Colors.red,
+              ),
+              child: Text(
+                "Delete Category",
+                style: AppTextStyle.latoRegular,textAlign: TextAlign.center,
+              ),
+            ),
+          ),
 
         ]),
       ),

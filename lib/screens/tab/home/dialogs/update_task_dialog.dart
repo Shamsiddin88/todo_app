@@ -13,24 +13,28 @@ import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/utilities.dart';
 import 'category_select_dialog.dart';
 
-addTaskDialog({
+updateTaskDialog({
   required BuildContext context,
+  required TaskModel task,
   required ValueChanged<TaskModel> taskModelChanged,
 }) {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  TaskModel taskModel = task;
 
-  TaskModel taskModel = TaskModel.initialValue;
+  final TextEditingController titleController =
+  TextEditingController(text: taskModel.title);
+  final TextEditingController descriptionController =
+  TextEditingController(text: taskModel.description);
+
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
 
-  int priority=1;
   String category = "work";
+  int priority = 1;
 
   final FocusNode focusNodeOne = FocusNode();
   final FocusNode focusNodeTwo = FocusNode();
   showModalBottomSheet(
-    isScrollControlled: true,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16.w), topRight: Radius.circular(16.w))),
@@ -59,7 +63,7 @@ addTaskDialog({
                     style: AppTextStyle.latoBold,
                     focusNode: focusNodeOne,
                     onChanged: (v) {
-                     taskModel = taskModel.copyWith(title: v);
+                      taskModel = taskModel.copyWith(title: v);
                     },
                     textInputAction: TextInputAction.next,
                     controller: titleController,
@@ -86,14 +90,14 @@ addTaskDialog({
                     textInputAction: TextInputAction.done,
                     focusNode: focusNodeTwo,
                     onChanged: (v) {
-                     taskModel = taskModel.copyWith(description: v);
+                      taskModel = taskModel.copyWith(description: v);
                     },
                     controller: descriptionController,
                     decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         fillColor: Colors.transparent,
                         labelStyle:
-                            AppTextStyle.latoRegular.copyWith(fontSize: 18.w),
+                        AppTextStyle.latoRegular.copyWith(fontSize: 18.w),
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 14.h),
                         hintText: "Enter Description",
@@ -112,7 +116,6 @@ addTaskDialog({
                     children: [
                       IconButton(
                           onPressed: () async {
-
                             dateTime = await showDatePicker(
                                 barrierColor: AppColors.c_363636,
                                 barrierDismissible: false,
@@ -146,7 +149,7 @@ addTaskDialog({
                             );
                             if (timeOfDay != null) {
                               DateTime d = taskModel.deadline;
-                              d=d.copyWith(
+                              d.copyWith(
                                   hour: timeOfDay!.hour,
                                   minute: timeOfDay!.minute);
                               setState(() {
@@ -158,13 +161,13 @@ addTaskDialog({
 
                       IconButton(
                           onPressed: () async {
-                           showCategorySelectDialog(context: context, categorySelection: (selectedCategory) {
-                             setState((){
-                               category = selectedCategory;
-                                                            });
-                             taskModel = taskModel.copyWith(category: selectedCategory) ;
+                            showCategorySelectDialog(context: context, categorySelection: (selectedCategory) {
+                              setState((){
+                                category = selectedCategory;
+                              });
+                              taskModel = taskModel.copyWith(category: selectedCategory) ;
 
-                           }, category: category);
+                            }, category: category);
                           },
                           icon: SvgPicture.asset(AppImages.tag)),
                       IconButton(

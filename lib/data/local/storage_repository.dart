@@ -9,7 +9,7 @@ class StorageRepository {
 
   factory StorageRepository() => instance;
 
- static Future<void> init() async {
+  static Future<void> init() async {
     _preference = await SharedPreferences.getInstance();
   }
 
