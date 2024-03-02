@@ -1,10 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/models/category/category_model.dart';
 import 'package:todo_app/models/profile_settings.dart';
 import 'package:todo_app/screens/tab/profile/widgets/profile_items.dart';
 import 'package:todo_app/utils/colors/app_colors.dart';
 import 'package:todo_app/utils/images/app_images.dart';
+import 'package:todo_app/utils/pick_image.dart';
 import 'package:todo_app/utils/size/size_utils.dart';
 import 'package:todo_app/utils/styles/app_text_style.dart';
 
@@ -19,22 +24,26 @@ class ProfileScreen extends StatefulWidget {
 
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List<ProfileSettings> account = [
-    ProfileSettings(title: "Change account name", iconPath: AppImages.profile, onTab:(){}),
-    ProfileSettings(
-        title: "Change account password", iconPath: AppImages.password, onTab:(){}),
-    ProfileSettings(
-        title: "Change account Image", iconPath: AppImages.changeImage, onTab:(){}),
-  ];
-  List<ProfileSettings> upTodo = [
-    ProfileSettings(title: "About US", iconPath: AppImages.aboutUs, onTab:(){}),
-    ProfileSettings(title: "FAQ", iconPath: AppImages.faq, onTab:(){}),
-    ProfileSettings(title: "Help & Feedback", iconPath: AppImages.help, onTab:(){}),
-    ProfileSettings(title: "Support US", iconPath: AppImages.support, onTab:(){}),
-  ];
 
-  @override
+
+  Uint8List? _image;
+
+  void selectImageGallary ()async{
+    Uint8List img=await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+
+  void selectImageCamera ()async{
+    Uint8List img=await pickImage(ImageSource.camera);
+    setState(() {
+      _image = img;
+    });
+  }
+ @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -48,13 +57,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Profile",
                   style: AppTextStyle.latoRegular.copyWith(fontSize: 20.w),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                  child: Image.asset(
-                    AppImages.profileOne,
-                    width: 85.w,
-                  ),
-                ),
+                  Stack(children: [
+                    _image!=null?
+                        CircleAvatar(radius: 64,
+                        backgroundImage: MemoryImage(_image!),)
+                        :
+                    CircleAvatar(
+                      radius: 64,
+                        backgroundImage: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgVUEjaWnHvhNaEy1-Jl6Ljvi7ahounqegSQ&usqp=CAU"),
+                    ),
+                    Positioned(
+                        bottom: -10,
+                        left: 80,
+                        child: IconButton(onPressed: selectImagePicker, icon: Icon(Icons.add_a_photo, color: AppColors.white,),))
+                  ],),
                 Text(
                   "Martha Hays",
                   style: AppTextStyle.latoMedium.copyWith(fontSize: 20.w),
@@ -110,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             4.getH(),
-            ProfileItems(iconPath: AppImages.settings, title: "App Settings", onTab: (){Navigator.pushNamed(context, RouteNames.addCategory);},),
+            ProfileItems(iconPath: AppImages.settings, title: "Change Category", onTab: (){Navigator.pushNamed(context, RouteNames.addCategory);},),
             16.getH(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -120,11 +136,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     .copyWith(fontSize: 14.h, color: AppColors.c_AFAFAF),
               ),
             ),
-            ...List.generate(
-                account.length,
-                (index) => ProfileItems(
-                    iconPath: account[index].iconPath,
-                    title: account[index].title, onTab: () {},),),
+            ProfileItems(iconPath: AppImages.changeImage, title: "Change account Image", onTab: selectImagePicker),
+            ProfileItems(iconPath: AppImages.profile, title: "Change account Name", onTab: (){}),
             16.getH(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -134,13 +147,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     .copyWith(fontSize: 14.h, color: AppColors.c_AFAFAF),
               ),
             ),
-            ...List.generate(
-                upTodo.length,
-                (index) => ProfileItems(
-                    iconPath: upTodo[index].iconPath,
-                    title: upTodo[index].title, onTab: () { },)),
             TextButton(
-              onPressed: (){},
+              onPressed: (){
+                SystemNavigator.pop();
+              },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(children: [
@@ -156,4 +166,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+  selectImagePicker(){
+    return showModalBottomSheet(
+        backgroundColor: AppColors.c_363636,
+        context: context, builder: (context)=>
+        Column(mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.camera_alt, color: AppColors.white,size: 40,),
+              title: Text("Pick Camera", style: AppTextStyle.latoMedium,),
+              onTap: (){selectImageCamera(); Navigator.pop(context);},
+            ),
+            ListTile(
+              leading: Icon(Icons.image, color: AppColors.white,size: 40,),
+              title: Text("Pick Gallery", style: AppTextStyle.latoMedium,),
+              onTap: (){selectImageGallary(); Navigator.pop(context);},
+            ),
+          ],
+
+        ));
+  }
 }
+
+

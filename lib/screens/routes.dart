@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/screens/add_category/add_category_screen.dart';
 import 'package:todo_app/screens/on_boarding/on_boarding_screen.dart';
 import 'package:todo_app/screens/splash/splash_screen.dart';
+import 'package:todo_app/screens/tab/profile/change_image_screen.dart';
 import 'package:todo_app/screens/tab/tab_box.dart';
 import 'package:todo_app/screens/task_detail/task_detail_screen.dart';
 
@@ -23,6 +24,10 @@ class AppRoutes {
       case RouteNames.addCategory:
         {
           return MaterialPageRoute(builder: (context) => AddCategoryScreen());
+        }
+      case RouteNames.changeImage:
+        {
+          return MaterialPageRoute(builder: (context) => const ChangeImageScreen());
         }
 
       case RouteNames.updateCategory:
@@ -64,6 +69,7 @@ class RouteNames{
     static const String onboard = "/on_board_route";
     static const String addCategory = "/add_category_route";
     static const String updateCategory = "/update_category_route";
+    static const String changeImage = "/change_image_route";
     static const String taskRoute = "/task_route";
 
 

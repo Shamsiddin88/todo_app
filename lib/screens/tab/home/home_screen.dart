@@ -122,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   10.getH(),
                   ...List.generate(tasks.length, (index) {
                   TaskModel taskModel = tasks[index];
-                  return Container(
+                  return
+                    Container(
                     margin:
                         EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                     padding:

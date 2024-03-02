@@ -195,29 +195,7 @@ addTaskDialog({
                           icon: SvgPicture.asset(AppImages.next)),
                     ],
                   ),
-                  if (timeOfDay != null)
-                    Row(
-                      children: [
-                        Text("TIME: ", style: AppTextStyle.latoBold),
-                        Text("${timeOfDay!.hour}:${timeOfDay!.minute}",
-                            style: AppTextStyle.latoBold),
-                      ],
-                    ),
-                  if (dateTime != null)
-                    Row(
-                      children: [
-                        Text("DEADLINE: ", style: AppTextStyle.latoBold),
-                        Text(DateFormat.yMMMEd().format(dateTime!),
-                            style: AppTextStyle.latoBold),
-                      ],
-                    ),
-                  Row(
-                    children: [
-                      Text("CATEGORY: ", style: AppTextStyle.latoBold),
-                      Text(category,
-                          style: AppTextStyle.latoBold),
-                    ],
-                  ),
+
 
                 ],
               ),
