@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/data/local/local_database.dart';
 import 'package:todo_app/screens/add_category/add_category_screen.dart';
 import 'package:todo_app/screens/tab/home/dialogs/widget/choose_category.dart';
@@ -53,7 +51,7 @@ showCategorySelectDialog({
   // debugPrint("QO'SHILGAN ID:${savedCategories[0].id.toString()}");
   final savedCategories = await getDataItems();
 
-
+if (!context.mounted) return;
   showDialog(
       context: context,
       builder: (context) {
@@ -99,7 +97,6 @@ showCategorySelectDialog({
                                   }, onDoubleTap: () async {
                                 int d = await LocalDatabase.deleteCategory(
                                     categoryModel.id!);
-                                print("DELETED ID:$d");
 
                               },);
                           }),

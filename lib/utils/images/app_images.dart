@@ -35,6 +35,8 @@ class AppImages {
   static const String password = "assets/icons/password.svg";
   static const String settings = "assets/icons/settings.svg";
   static const String support = "assets/icons/support.svg";
+  static const String delete = "assets/icons/delete.svg";
+  static const String edit = "assets/icons/edit.svg";
 
   //.jpg
 

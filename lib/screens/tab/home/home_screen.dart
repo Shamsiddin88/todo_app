@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     margin:
                         EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4.w),
                         color: AppColors.c_363636),
@@ -140,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               taskModel.title,
                               style: AppTextStyle.latoBold,
                             ),
+                            Text(taskModel.category),
                             Container(
                               padding: EdgeInsets.all(4.w),
                               decoration: BoxDecoration(
@@ -182,10 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                   );
                                 },
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: Colors.green,
-                                )),
+                                icon: SvgPicture.asset(AppImages.edit)
+                            ),
                             IconButton(
                                 onPressed: () async {
                                   int d = await LocalDatabase.deleteTask(
@@ -193,10 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   print("DELETED ID:$d");
                                   _init();
                                 },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ))
+                                icon: SvgPicture.asset(AppImages.delete))
                           ],
                         ),
                       ],

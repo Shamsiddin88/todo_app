@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_app/models/task/task_model.dart';
@@ -8,7 +6,6 @@ import 'package:todo_app/utils/images/app_images.dart';
 import 'package:todo_app/utils/size/size_utils.dart';
 import 'package:todo_app/utils/styles/app_text_style.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/utilities.dart';
 import 'category_select_dialog.dart';
@@ -73,10 +70,10 @@ addTaskDialog({
                         hintStyle: AppTextStyle.latoRegular
                             .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.transparent),
+                            borderSide: const BorderSide(color: AppColors.transparent),
                             borderRadius: BorderRadius.circular(4.w)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.c_AFAFAF),
+                            borderSide: const BorderSide(color: AppColors.c_AFAFAF),
                             borderRadius: BorderRadius.circular(4.w))),
                   ),
                   14.getH(),
@@ -100,10 +97,10 @@ addTaskDialog({
                         hintStyle: AppTextStyle.latoRegular
                             .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.transparent),
+                            borderSide: const BorderSide(color: AppColors.transparent),
                             borderRadius: BorderRadius.circular(4.w)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.c_AFAFAF),
+                            borderSide: const BorderSide(color: AppColors.c_AFAFAF),
                             borderRadius: BorderRadius.circular(4.w))),
                   ),
                   35.getH(),
