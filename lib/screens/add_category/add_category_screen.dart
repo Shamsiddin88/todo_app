@@ -9,14 +9,11 @@ import '../../models/category/category_model.dart';
 import '../../utils/colors/app_colors.dart';
 
 class AddCategoryScreen extends StatefulWidget {
-  const AddCategoryScreen(
-      {super.key});
-
+  const AddCategoryScreen({super.key});
 
   @override
   State<AddCategoryScreen> createState() => _AddCategoryScreenState();
 }
-
 
 CategoryModel categoryModel = CategoryModel.initialValue;
 
@@ -48,20 +45,18 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     AppColors.c_FF80EB
   ];
 
-  List <CategoryModel> categories = [];
+  List<CategoryModel> categories = [];
 
-  _init ()async{
-    categories=await LocalDatabase.getAllCategories();
-    setState(() {
-
-    });
+  _init() async {
+    categories = await LocalDatabase.getAllCategories();
+    setState(() {});
   }
+
   @override
   void initState() {
     _init();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +112,8 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                       (index) => IconButton(
                             onPressed: () {
                               String icon = icons[index];
-                              categoryModel = categoryModel.copyWith(iconPath: icon);
+                              categoryModel =
+                                  categoryModel.copyWith(iconPath: icon);
 
                               setState(() {
                                 activeIconIndex = index;
@@ -146,7 +142,8 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                       (index) => IconButton(
                             onPressed: () {
                               Color color = colors[index];
-                              categoryModel = categoryModel.copyWith(color: color);
+                              categoryModel =
+                                  categoryModel.copyWith(color: color);
                               setState(() {
                                 activeColorIndex = index;
                               });
@@ -182,8 +179,8 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                   Navigator.pop(context);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 37.w, vertical: 17.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 37.w, vertical: 17.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4.w),
                     color: AppColors.c_363636,
@@ -198,16 +195,15 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
               TextButton(
                 onPressed: () async {
                   print(categoryModel.iconPath);
-                  if (categoryModel.canAddCategoryToDatabase()){
+                  if (categoryModel.canAddCategoryToDatabase()) {
                     await LocalDatabase.insertCategory(categoryModel);
                     _init();
                     Navigator.pop(context);
                   }
-
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 20.w, vertical: 17.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4.w),
                     color: AppColors.c_8687E7,
@@ -220,7 +216,6 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
               ),
             ],
           )
-
         ]),
       ),
     );

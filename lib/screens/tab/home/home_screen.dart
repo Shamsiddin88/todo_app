@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 80,
         leading: IconButton(
           onPressed: () {},
-          icon: SvgPicture.asset(AppImages.more),
+          icon: SvgPicture.asset(AppImages.more,height: 24.h,),
         ),
         title: Text(
           "Index",
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
             child: Image.asset(
-              AppImages.profileOne,
+              AppImages.profileOne,height: 42.h,
             ),
           )
         ],
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 14.h),
                         hintText: "Search",
-                        prefixIcon: Icon(Icons.search, color: AppColors.c_AFAFAF,),
+                        prefixIcon: Icon(Icons.search, color: AppColors.c_AFAFAF,size: 24.w,),
                         hintStyle: AppTextStyle.latoRegular
                             .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: AppColors.c_8687E7),
                               child: Row(
                                 children: [
-                                  SvgPicture.asset(AppImages.flag),
+                                  SvgPicture.asset(AppImages.flag, height: 24.h,),
                                   5.getW(),
                                   Text(
                                     taskModel.priority.toString(),
@@ -184,16 +184,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                   );
                                 },
-                                icon: SvgPicture.asset(AppImages.edit)
+                                icon: SvgPicture.asset(AppImages.edit, height: 24.h,)
                             ),
                             IconButton(
                                 onPressed: () async {
                                   int d = await LocalDatabase.deleteTask(
                                       taskModel.id!);
-                                  print("DELETED ID:$d");
                                   _init();
                                 },
-                                icon: SvgPicture.asset(AppImages.delete))
+                                icon: SvgPicture.asset(AppImages.delete, height: 24.h,))
                           ],
                         ),
                       ],
@@ -202,21 +201,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 })],
               ),
           ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          addTaskDialog(
-            context: context,
-            taskModelChanged: (task) async {
-              print(taskModel.title);
-              await LocalDatabase.insertTask(task);
-              _init();
+      floatingActionButton: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+        child: Container(
+          decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.c_8687E7,),
+
+          height: 64.h,
+          width: 64.w,
+          child: FloatingActionButton(
+
+            onPressed: () {
+              addTaskDialog(
+                context: context,
+                taskModelChanged: (task) async {
+                  await LocalDatabase.insertTask(task);
+                  _init();
+                },
+              );
             },
-          );
-        },
-        backgroundColor: AppColors.c_8687E7,
-        child: Icon(
-          Icons.add,
-          size: 32.h,
+            backgroundColor: AppColors.c_8687E7,
+            child: Icon(
+              Icons.add,
+              size: 32.h,
+            ),
+          ),
         ),
       ),
     );

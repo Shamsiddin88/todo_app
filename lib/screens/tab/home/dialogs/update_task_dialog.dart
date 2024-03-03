@@ -132,7 +132,7 @@ updateTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.calendar)),
+                          icon: SvgPicture.asset(AppImages.calendar, height: 24.h,)),
                       IconButton(
                           onPressed: () async {
                             timeOfDay = await showTimePicker(
@@ -157,7 +157,7 @@ updateTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.clock)),
+                          icon: SvgPicture.asset(AppImages.clock, height: 24.h)),
 
                       IconButton(
                           onPressed: () async {
@@ -169,7 +169,7 @@ updateTaskDialog({
 
                             }, category: category);
                           },
-                          icon: SvgPicture.asset(AppImages.tag)),
+                          icon: SvgPicture.asset(AppImages.tag, height: 24.h)),
                       IconButton(
                           onPressed: () {
                             showPrioritySelectDialog(
@@ -181,49 +181,27 @@ updateTaskDialog({
                                   });
                                   taskModel = taskModel.copyWith(priority: p);
 
-                                  if (taskModel.canAddTaskToDatabase()){
-                                    print(taskModel.title);
-                                    showSuccessMessage("SUCCESS");
-                                    taskModelChanged.call(taskModel);
-                                    Navigator.pop(context);
-                                  }
-                                  else {
-                                    showErrorMessage("ERROR");
-                                  }
+
+
                                 });
                           },
-                          icon: SvgPicture.asset(AppImages.flag)),
+                          icon: SvgPicture.asset(AppImages.flag, height: 24.h)),
                       IconButton(
                           onPressed: () {
-                            focusNodeOne.unfocus();
-                            Navigator.pop(context);
+                            if (taskModel.canAddTaskToDatabase()){
+                              print(taskModel.title);
+                              showSuccessMessage("SUCCESS");
+                              taskModelChanged.call(taskModel);
+                              Navigator.pop(context);
+                            }
+                            else {
+                              showErrorMessage("ERROR");
+                            }
                           },
-                          icon: SvgPicture.asset(AppImages.next)),
+                          icon: SvgPicture.asset(AppImages.next, height: 24.h)),
                     ],
                   ),
-                  if (timeOfDay != null)
-                    Row(
-                      children: [
-                        Text("TIME: ", style: AppTextStyle.latoBold),
-                        Text("${timeOfDay!.hour}:${timeOfDay!.minute}",
-                            style: AppTextStyle.latoBold),
-                      ],
-                    ),
-                  if (dateTime != null)
-                    Row(
-                      children: [
-                        Text("DEADLINE: ", style: AppTextStyle.latoBold),
-                        Text(DateFormat.yMMMEd().format(dateTime!),
-                            style: AppTextStyle.latoBold),
-                      ],
-                    ),
-                  Row(
-                    children: [
-                      Text("CATEGORY: ", style: AppTextStyle.latoBold),
-                      Text(category,
-                          style: AppTextStyle.latoBold),
-                    ],
-                  ),
+
 
                 ],
               ),

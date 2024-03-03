@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
+import 'package:todo_app/data/local/storage_repository.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,34 +25,50 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-
 class _ProfileScreenState extends State<ProfileScreen> {
+  Image? _image;
 
-
-  Uint8List? _image;
-
-  void selectImageGallary ()async{
-    Uint8List img=await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img;
-    });
+  void selectImageGallery() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {});
   }
 
-  void selectImageCamera ()async{
-    Uint8List img=await pickImage(ImageSource.camera);
+  void selectImageCamera() async {
+    Uint8List img = await pickImage(ImageSource.camera);
+    String base64Img = StorageRepository.base64String(img);
+    StorageRepository.setString(key: "image", value: base64Img);
+    Uint8List bytes = base64Decode(StorageRepository.getString(key: "image"));
     setState(() {
-      _image = img;
+      _image = Image.memory(bytes);
+    });
+    debugPrint("Saqlangan ${base64Img}");
+
+    debugPrint("O'qib olingan ${StorageRepository.getString(key: "image")}");
+  }
+  String? profileName;
+  _init(){
+    profileName=StorageRepository.getString(key: "profileName");
+    setState(() {
     });
   }
- @override
+  //
+  // @override
+  // void initState() {
+  //   _init();
+  //   super.initState();
+  // }
+
+
+  String name = "";
+
+  @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            30.getH(),
+            40.getH(),
             Center(
                 child: Column(
               children: [
@@ -57,22 +76,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Profile",
                   style: AppTextStyle.latoRegular.copyWith(fontSize: 20.w),
                 ),
-                  Stack(children: [
-                    _image!=null?
-                        CircleAvatar(radius: 64,
-                        backgroundImage: MemoryImage(_image!),)
-                        :
-                    CircleAvatar(
-                      radius: 64,
-                        backgroundImage: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgVUEjaWnHvhNaEy1-Jl6Ljvi7ahounqegSQ&usqp=CAU"),
-                    ),
+                20.getH(),
+                Stack(
+                  children: [
+                    _image != null
+                        ? CircleAvatar(
+                            radius: 64.w, backgroundImage: _image!.image)
+                        : CircleAvatar(
+                            radius: 64.w,
+                            backgroundImage: NetworkImage(
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgVUEjaWnHvhNaEy1-Jl6Ljvi7ahounqegSQ&usqp=CAU"),
+                          ),
                     Positioned(
-                        bottom: -10,
-                        left: 80,
-                        child: IconButton(onPressed: selectImagePicker, icon: Icon(Icons.add_a_photo, color: AppColors.white,),))
-                  ],),
+                        bottom: 10.h,
+                        left: 80.w,
+                        child: IconButton(
+                          onPressed: selectImagePicker,
+                          icon: Icon(
+                            Icons.add_a_photo,
+                            color: AppColors.white,
+                            size: 40.h,
+                          ),
+                        ))
+                  ],
+                ),
+                20.getH(),
                 Text(
-                  "Martha Hays",
+                  profileName?? "Your profile name",
                   style: AppTextStyle.latoMedium.copyWith(fontSize: 20.w),
                 ),
                 20.getH(),
@@ -122,42 +152,161 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Text(
                 "Settings",
                 style: AppTextStyle.latoRegular
-                    .copyWith(fontSize: 14.h, color: AppColors.c_AFAFAF),
+                    .copyWith(fontSize: 14.w, color: AppColors.c_AFAFAF),
               ),
             ),
             4.getH(),
-            ProfileItems(iconPath: AppImages.settings, title: "Change Category", onTab: (){Navigator.pushNamed(context, RouteNames.addCategory);},),
+            ProfileItems(
+              iconPath: AppImages.settings,
+              title: "Change Category",
+              onTab: () {
+                Navigator.pushNamed(context, RouteNames.addCategory);
+              },
+            ),
             16.getH(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Text(
                 "Account",
                 style: AppTextStyle.latoRegular
-                    .copyWith(fontSize: 14.h, color: AppColors.c_AFAFAF),
+                    .copyWith(fontSize: 14.w, color: AppColors.c_AFAFAF),
               ),
             ),
-            ProfileItems(iconPath: AppImages.changeImage, title: "Change account Image", onTab: selectImagePicker),
-            ProfileItems(iconPath: AppImages.profile, title: "Change account Name", onTab: (){}),
+            ProfileItems(
+                iconPath: AppImages.changeImage,
+                title: "Change account Image",
+                onTab: selectImagePicker),
+            ProfileItems(
+                iconPath: AppImages.profile,
+                title: "Change account Name",
+                onTab: () {
+                  showModalBottomSheet(isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16.w), topRight: Radius.circular(16.w))),
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(builder: (context, setState) {
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(16.w),
+                                      topRight: Radius.circular(16.w)),
+                                  color: AppColors.c_363636),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Account name",
+                                    style: AppTextStyle.latoBold.copyWith(fontSize: 20.w),
+                                  ),
+                                  14.getH(),
+                                  TextField(
+                                    style: AppTextStyle.latoBold,
+                                    onChanged: (v) {
+                                      name=v;
+                                      StorageRepository.setString(key: "profileName", value: name);
+                                    },
+                                    decoration: InputDecoration(
+
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        fillColor: Colors.transparent,
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 12.w, vertical: 14.h),
+                                        hintText: "Enter you new profile name",
+                                        hintStyle: AppTextStyle.latoRegular
+                                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: AppColors.transparent),
+                                            borderRadius: BorderRadius.circular(4.w)),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: AppColors.c_AFAFAF),
+                                            borderRadius: BorderRadius.circular(4.w))),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 37.w, vertical: 17.h),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(4.w),
+                                              color: AppColors.c_363636,
+                                            ),
+                                            child: Text(
+                                              "Cancel",
+                                              style: AppTextStyle.latoRegular
+                                                  .copyWith(color: AppColors.c_8687E7),
+                                            ),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            setState((){
+                                              _init();
+
+                                            });
+                                            Navigator.pop(context);
+
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 37.w, vertical: 17.h),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(4.w),
+                                              color: AppColors.c_8687E7,
+                                            ),
+                                            child: Text(
+                                              "Save",
+                                              style: AppTextStyle.latoRegular,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+
+
+
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                      } );
+
+                }),
             16.getH(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Text(
-                "Uptodo",
-                style: AppTextStyle.latoRegular
-                    .copyWith(fontSize: 14.h, color: AppColors.c_AFAFAF),
-              ),
-            ),
             TextButton(
-              onPressed: (){
+              onPressed: () {
                 SystemNavigator.pop();
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Row(children: [
-                  SvgPicture.asset(AppImages.logOut, height: 24.h,),
-                  26.getW(),
-                  Text("Log out", style: AppTextStyle.latoRegular.copyWith(color: AppColors.c_error),)
-                ],),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      AppImages.logOut,
+                      height: 24.h,
+                    ),
+                    26.getW(),
+                    Text(
+                      "Log out",
+                      style: AppTextStyle.latoRegular
+                          .copyWith(color: AppColors.c_error),
+                    )
+                  ],
+                ),
               ),
             ),
             50.getH(),
@@ -167,26 +316,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  selectImagePicker(){
+  selectImagePicker() {
     return showModalBottomSheet(
         backgroundColor: AppColors.c_363636,
-        context: context, builder: (context)=>
-        Column(mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: Icon(Icons.camera_alt, color: AppColors.white,size: 40,),
-              title: Text("Pick Camera", style: AppTextStyle.latoMedium,),
-              onTap: (){selectImageCamera(); Navigator.pop(context);},
-            ),
-            ListTile(
-              leading: Icon(Icons.image, color: AppColors.white,size: 40,),
-              title: Text("Pick Gallery", style: AppTextStyle.latoMedium,),
-              onTap: (){selectImageGallary(); Navigator.pop(context);},
-            ),
-          ],
-
-        ));
+        context: context,
+        builder: (context) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                20.getH(),
+                ListTile(
+                  leading: Icon(
+                    Icons.camera_alt,
+                    color: AppColors.white,
+                    size: 40.w,
+                  ),
+                  title: Text(
+                    "Pick Camera",
+                    style: AppTextStyle.latoMedium,
+                  ),
+                  onTap: () {
+                    selectImageCamera();
+                    Navigator.pop(context);
+                  },
+                ),
+                20.getH(),
+                ListTile(
+                  leading: Icon(
+                    Icons.image,
+                    color: AppColors.white,
+                    size: 40.w,
+                  ),
+                  title: Text(
+                    "Pick Gallery",
+                    style: AppTextStyle.latoMedium,
+                  ),
+                  onTap: () {
+                    selectImageGallery();
+                    Navigator.pop(context);
+                  },
+                ),
+                20.getH(),
+              ],
+            ));
   }
 }
-
-

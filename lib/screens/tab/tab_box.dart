@@ -41,24 +41,24 @@ class _TabBoxState extends State<TabBox> {
           backgroundColor: AppColors.c_363636,
           items: [
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(AppImages.home, colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.3), BlendMode.srcIn),),
+                icon: SvgPicture.asset(AppImages.home,height: 24.h, colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.3), BlendMode.srcIn),),
                 label: "Index",
                 activeIcon: SvgPicture.asset(
-                  AppImages.home,
+                  AppImages.home,height: 24.h,
                   colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn),
                 )),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(AppImages.calendar, colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.3), BlendMode.srcIn),),
+                icon: SvgPicture.asset(AppImages.calendar,height: 24.h, colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.3), BlendMode.srcIn),),
                 label: "Calendar",
                 activeIcon: SvgPicture.asset(
-                  AppImages.calendar,
+                  AppImages.calendar,height: 24.h,
                   colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn),
                 )),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(AppImages.profile, colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.3), BlendMode.srcIn),),
+                icon: SvgPicture.asset(AppImages.profile,height: 24.h, colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.3), BlendMode.srcIn),),
                 label: "Profile",
                 activeIcon: SvgPicture.asset(
-                  AppImages.profile,
+                  AppImages.profile,height: 24.h,
                   colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn),
                 )),
 

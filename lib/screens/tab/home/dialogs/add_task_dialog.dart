@@ -26,6 +26,7 @@ addTaskDialog({
 
   final FocusNode focusNodeOne = FocusNode();
   final FocusNode focusNodeTwo = FocusNode();
+
   showModalBottomSheet(
     isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -111,6 +112,7 @@ addTaskDialog({
                           onPressed: () async {
 
                             dateTime = await showDatePicker(
+
                                 barrierColor: AppColors.c_363636,
                                 barrierDismissible: false,
                                 cancelText: "Cancel",
@@ -126,7 +128,7 @@ addTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.calendar)),
+                          icon: SvgPicture.asset(AppImages.calendar,height: 24.h,)),
                       IconButton(
                           onPressed: () async {
                             timeOfDay = await showTimePicker(
@@ -151,7 +153,7 @@ addTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.clock)),
+                          icon: SvgPicture.asset(AppImages.clock,height: 24.h)),
 
                       IconButton(
                           onPressed: () async {
@@ -163,7 +165,7 @@ addTaskDialog({
 
                            }, category: category);
                           },
-                          icon: SvgPicture.asset(AppImages.tag)),
+                          icon: SvgPicture.asset(AppImages.tag,height: 24.h)),
                       IconButton(
                           onPressed: () {
                             showPrioritySelectDialog(
@@ -175,24 +177,23 @@ addTaskDialog({
                                   });
                                   taskModel = taskModel.copyWith(priority: p);
 
-                                  if (taskModel.canAddTaskToDatabase()){
-                                    print(taskModel.title);
-                                    showSuccessMessage("SUCCESS");
-                                    taskModelChanged.call(taskModel);
-                                    Navigator.pop(context);
-                                  }
-                                  else {
-                                    showErrorMessage("ERROR");
-                                  }
+
                                 });
                           },
-                          icon: SvgPicture.asset(AppImages.flag)),
+                          icon: SvgPicture.asset(AppImages.flag,height: 24.h)),
                       IconButton(
                           onPressed: () {
-                            focusNodeOne.unfocus();
-                            Navigator.pop(context);
+                            if (taskModel.canAddTaskToDatabase()){
+                              showSuccessMessage("SUCCESS");
+                              taskModelChanged.call(taskModel);
+                              Navigator.pop(context);
+                            }
+                            else {
+                              showErrorMessage("ERROR");
+                            }
+
                           },
-                          icon: SvgPicture.asset(AppImages.next)),
+                          icon: SvgPicture.asset(AppImages.next,height: 24.h)),
                     ],
                   ),
 

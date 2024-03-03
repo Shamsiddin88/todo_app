@@ -37,10 +37,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: TextButton(onPressed: () {Navigator.pushNamed(context, RouteNames.tabBox);
+      appBar: AppBar(
+          automaticallyImplyLeading: false ,actions:
+      [ 24.getW()
+        ,TextButton(onPressed: () {Navigator.pushNamed(context, RouteNames.tabBox);
       StorageRepository.setBool(key: StorageKeys.onBoardingRoute, value: true);},
           child: Text("SKIP", style: AppTextStyle.latoRegular.copyWith(
               fontSize: 16.w, color: AppColors.white.withOpacity(.44)),)),
+      Spacer()]
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 36.w),
@@ -50,7 +54,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 25.getH(),
                 SizedBox(
-                  height: 510,
+                  height: height/1.5,
                   child: PageView(
                       physics: NeverScrollableScrollPhysics(),
                       controller: pageController,
