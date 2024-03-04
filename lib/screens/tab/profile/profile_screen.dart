@@ -46,15 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
     });
   }
-  //
-  // @override
-  // void initState() {
-  //   _init();
-  //   super.initState();
-  // }
-
-
-  String name = "";
+String name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +243,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context: context,
                     builder: (BuildContext context) =>AlertDialog(
                       backgroundColor: AppColors.c_272727,
-                      content: Text('Are you sure you want to log out', style: AppTextStyle.latoBold.copyWith(fontSize: 22.w),textAlign: TextAlign.center,),
+                      content: Text('Are you sure you want to log out ?', style: AppTextStyle.latoBold.copyWith(fontSize: 22.w),textAlign: TextAlign.center,),
                       actions: [
                         Center(
                           child: Padding(

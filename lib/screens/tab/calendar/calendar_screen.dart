@@ -78,7 +78,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               )),
              Column(
                 children: selectTasks.isEmpty
-                    ? [Text('No tasks for selected day')]
+                    ? [Text('No tasks for selected day',style: AppTextStyle.latoSemiBold,)]
                     : List.generate(
                         selectTasks.length,
                         (index) =>
