@@ -4,7 +4,6 @@ import 'package:todo_app/screens/on_boarding/on_boarding_screen.dart';
 import 'package:todo_app/screens/splash/splash_screen.dart';
 import 'package:todo_app/screens/tab/profile/change_image_screen.dart';
 import 'package:todo_app/screens/tab/tab_box.dart';
-import 'package:todo_app/screens/task_detail/task_detail_screen.dart';
 
 import 'add_category/update_category_screen.dart';
 
@@ -40,12 +39,7 @@ class AppRoutes {
           return MaterialPageRoute(builder: (context) => TabBox());
         }
 
-      case RouteNames.taskRoute:
-        {
-          return MaterialPageRoute(builder: (context) => TaskDetailScreen());
-        }
-
-      default:
+     default:
         {
           return MaterialPageRoute(
             builder: (context) => Scaffold(

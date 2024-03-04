@@ -81,56 +81,66 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ? [Text('No tasks for selected day')]
                     : List.generate(
                         selectTasks.length,
-                        (index) => Container(
-        
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24.w, vertical: 12.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.w),
-                              color: AppColors.c_363636),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        (index) =>
+                            Container(
+                              margin:
+                              EdgeInsets.symmetric(vertical: 12.h),
+                              padding:
+                              EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4.w),
+                                  color: AppColors.c_363636),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    selectTasks[index].title,
-                                    style: AppTextStyle.latoBold,
-                                  ),
-                                  Text(selectTasks[index].category),
-                                  Container(
-                                    padding: EdgeInsets.all(4.w),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: AppColors.c_8687E7),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(AppImages.flag),
-                                        5.getW(),
-                                        Text(
-                                          selectTasks[index].priority.toString(),
-                                          style: AppTextStyle.latoBold,
+                                  Row(
+                                    children: [
+                                      Text(
+                                        selectTasks[index].title,
+                                        style: AppTextStyle.latoBold,
+                                      ),
+                                      Spacer(),
+                                      Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+
+                                          decoration: BoxDecoration(color: AppColors.c_FF9680,
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: Text(selectTasks[index].category,style: AppTextStyle.latoBold,)),
+                                      8.getW(),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(4),
+                                            color: AppColors.c_8687E7),
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(AppImages.flag, height: 24.h,),
+                                            5.getW(),
+                                            Text(
+                                              selectTasks[index].priority.toString(),
+                                              style: AppTextStyle.latoBold,
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
+                                  ),
+                                  8.getH(),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "${selectTasks[index].deadline.year.toString()}-${selectTasks[index].deadline.month.toString().padLeft(2, '0')}-${selectTasks[index].deadline.day.toString().padLeft(2, '0')} ${selectTasks[index].deadline.hour.toString().padLeft(2, '0')}-${selectTasks[index].deadline.minute.toString().padLeft(2, '0')}",
+                                        style: AppTextStyle.latoBold
+                                            .copyWith(color: AppColors.c_AFAFAF),
+                                      ),
+
+                                    ],
                                   ),
                                 ],
                               ),
-                              8.getH(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${selectTasks[index].deadline.year.toString()}-${selectTasks[index].deadline.month.toString().padLeft(2, '0')}-${selectTasks[index].deadline.day.toString().padLeft(2, '0')} ",
-                                    style: AppTextStyle.latoBold
-                                        .copyWith(color: AppColors.c_AFAFAF),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
                       ),
               )
             ],

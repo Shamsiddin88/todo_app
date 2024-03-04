@@ -1,14 +1,9 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:todo_app/data/local/storage_repository.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:todo_app/models/category/category_model.dart';
-import 'package:todo_app/models/profile_settings.dart';
 import 'package:todo_app/screens/tab/profile/widgets/profile_items.dart';
 import 'package:todo_app/utils/colors/app_colors.dart';
 import 'package:todo_app/utils/images/app_images.dart';
@@ -41,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _image = Image.memory(bytes);
     });
-    debugPrint("Saqlangan ${base64Img}");
+    debugPrint("Saqlangan $base64Img");
 
     debugPrint("O'qib olingan ${StorageRepository.getString(key: "image")}");
   }
@@ -84,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             radius: 64.w, backgroundImage: _image!.image)
                         : CircleAvatar(
                             radius: 64.w,
-                            backgroundImage: NetworkImage(
+                            backgroundImage: const NetworkImage(
                                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgVUEjaWnHvhNaEy1-Jl6Ljvi7ahounqegSQ&usqp=CAU"),
                           ),
                     Positioned(
@@ -105,45 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   profileName?? "Your profile name",
                   style: AppTextStyle.latoMedium.copyWith(fontSize: 20.w),
                 ),
-                20.getH(),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 37.w, vertical: 17.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.w),
-                            color: AppColors.c_363636,
-                          ),
-                          child: Text(
-                            "10 Task left",
-                            style: AppTextStyle.latoRegular,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 37.w, vertical: 17.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.w),
-                            color: AppColors.c_363636,
-                          ),
-                          child: Text(
-                            "5 Task done",
-                            style: AppTextStyle.latoRegular,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+
               ],
             )),
             24.getH(),
@@ -158,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             4.getH(),
             ProfileItems(
               iconPath: AppImages.settings,
-              title: "Change Category",
+              title: "Create new Category",
               onTab: () {
                 Navigator.pushNamed(context, RouteNames.addCategory);
               },
@@ -289,7 +246,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
             16.getH(),
             TextButton(
               onPressed: () {
-                SystemNavigator.pop();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>AlertDialog(
+                      backgroundColor: AppColors.c_272727,
+                      content: Text('Are you sure you want to log out', style: AppTextStyle.latoBold.copyWith(fontSize: 22.w),textAlign: TextAlign.center,),
+                      actions: [
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 25.w, vertical: 17.h),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.w),
+                                      color: AppColors.c_363636,
+                                    ),
+                                    child: Text(
+                                      "No",
+                                      style: AppTextStyle.latoRegular
+                                          .copyWith(color: AppColors.c_8687E7),
+                                    ),
+                                  ),
+                                ),
+                                15.getW(),
+                                TextButton(
+                                  onPressed: () {
+                                    SystemNavigator.pop();
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 25.w, vertical: 17.h),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.w),
+                                      color: AppColors.c_8687E7,
+                                    ),
+                                    child: Text(
+                                      "Yes",
+                                      style: AppTextStyle.latoRegular,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ));
+
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),

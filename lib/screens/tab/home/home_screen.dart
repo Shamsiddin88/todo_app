@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/data/local/local_database.dart';
+import 'package:todo_app/models/category/category_model.dart';
 import 'package:todo_app/models/task/task_model.dart';
 import 'package:todo_app/screens/tab/home/dialogs/add_task_dialog.dart';
 import 'package:todo_app/utils/colors/app_colors.dart';
 import 'package:todo_app/utils/images/app_images.dart';
 import 'package:todo_app/utils/size/size_utils.dart';
 import 'package:todo_app/utils/styles/app_text_style.dart';
-import 'package:intl/intl.dart';
-import 'package:todo_app/utils/extensions/my_extensions.dart';
-
 import 'dialogs/update_task_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,9 +19,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<TaskModel> tasks = [];
+  List <CategoryModel> categories=[];
 
   _init() async {
     tasks = await LocalDatabase.getAllTasks();
+    categories=await LocalDatabase.getAllCategories();
+    debugPrint("Categories ${categories.length.toString()}");
     setState(() {});
 
   }
@@ -135,15 +136,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               taskModel.title,
                               style: AppTextStyle.latoBold,
                             ),
-                            Text(taskModel.category),
+                            Spacer(),
                             Container(
-                              padding: EdgeInsets.all(4.w),
+                                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+
+                                decoration: BoxDecoration(color: AppColors.c_FF9680,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(taskModel.category,style: AppTextStyle.latoBold,)),
+                            8.getW(),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                   color: AppColors.c_8687E7),

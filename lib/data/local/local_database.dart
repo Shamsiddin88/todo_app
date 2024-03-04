@@ -73,7 +73,7 @@ class LocalDatabase {
     debugPrint("INITIAL ID:${taskModel.id}");
     final db = await databaseInstance.database;
     int savedTaskID =
-    await db.insert(TaskModelConstants.tableName, taskModel.toJson());
+        await db.insert(TaskModelConstants.tableName, taskModel.toJson());
     debugPrint("SAVED ID:$savedTaskID");
     return taskModel.copyWith(id: savedTaskID);
   }
@@ -96,9 +96,9 @@ class LocalDatabase {
   }
 
   static Future<int> updateTask(
-      TaskModel taskModel,
-      int id,
-      ) async {
+    TaskModel taskModel,
+    int id,
+  ) async {
     debugPrint("UPDATE: ${taskModel.toJson()} ${taskModel.id}");
 
     final db = await databaseInstance.database;
@@ -151,7 +151,17 @@ class LocalDatabase {
     final db = await databaseInstance.database;
     String orderBy = "${CategoryModelConstants.id} DESC"; //"_id DESC"
     List json =
-    await db.query(CategoryModelConstants.tableName, orderBy: orderBy);
+        await db.query(CategoryModelConstants.tableName, orderBy: orderBy);
+    return json.map((e) => CategoryModel.fromJson(e)).toList();
+  }
+
+  static Future<List<CategoryModel>> getAllCategoryByName(String name) async {
+    final db = await databaseInstance.database;
+    String orderBy = "${CategoryModelConstants.id} DESC"; //"_id DESC"
+    List json = await db.query(CategoryModelConstants.tableName,
+        orderBy: orderBy,
+        where: "${CategoryModelConstants.name} = ?",
+        whereArgs: [name]);
     return json.map((e) => CategoryModel.fromJson(e)).toList();
   }
 
@@ -166,9 +176,9 @@ class LocalDatabase {
   }
 
   static Future<int> updateCategory(
-      CategoryModel categoryModel,
-      int id,
-      ) async {
+    CategoryModel categoryModel,
+    int id,
+  ) async {
     debugPrint("UPDATE: ${categoryModel.toJson()} ${categoryModel.id}");
 
     final db = await databaseInstance.database;
@@ -181,4 +191,3 @@ class LocalDatabase {
     return updatedCategoryId;
   }
 }
-
