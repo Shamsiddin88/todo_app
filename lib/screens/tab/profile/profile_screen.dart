@@ -245,7 +245,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }),
             16.getH(),
             TextButton(
-              onPressed: () {
+              onPressed: ()
+              {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) =>AlertDialog(

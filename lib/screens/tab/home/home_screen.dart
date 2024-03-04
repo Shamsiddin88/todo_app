@@ -19,15 +19,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<TaskModel> tasks = [];
-  List <CategoryModel> categories=[];
+  List<CategoryModel> categories = [];
 
   _init() async {
     tasks = await LocalDatabase.getAllTasks();
-    categories=await LocalDatabase.getAllCategories();
+    categories = await LocalDatabase.getAllCategories();
     debugPrint("Categories ${categories.length.toString()}");
     setState(() {});
-
   }
+
   _searchQuery(String q) async {
     tasks = await LocalDatabase.searchTasks(q);
     setState(() {});
@@ -50,7 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 80,
         leading: IconButton(
           onPressed: () {},
-          icon: SvgPicture.asset(AppImages.more,height: 24.h,),
+          icon: SvgPicture.asset(
+            AppImages.more,
+            height: 24.h,
+          ),
         ),
         title: Text(
           "Index",
@@ -61,7 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
             child: Image.asset(
-              AppImages.profileOne,height: 42.h,
+              AppImages.profileOne,
+              height: 42.h,
             ),
           )
         ],
@@ -89,135 +93,249 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : RefreshIndicator(
-            color: AppColors.white,
-            backgroundColor: Colors.blue,
-            onRefresh: (){_init();
-              return Future <void>.delayed(Duration(seconds: 2));},
-            child: ListView(
-                children:
-                [Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: TextField(
-
-                    style: AppTextStyle.latoBold,
-                    onChanged: _searchQuery,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        fillColor: Colors.transparent,
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 14.h),
-                        hintText: "Search",
-                        prefixIcon: Icon(Icons.search, color: AppColors.c_AFAFAF,size: 24.w,),
-                        hintStyle: AppTextStyle.latoRegular
-                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.c_AFAFAF),
-                            borderRadius: BorderRadius.circular(4.w)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.c_AFAFAF),
-                            borderRadius: BorderRadius.circular(4.w))),
+              color: AppColors.white,
+              backgroundColor: Colors.blue,
+              onRefresh: () {
+                _init();
+                return Future<void>.delayed(Duration(seconds: 2));
+              },
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: TextField(
+                      style: AppTextStyle.latoBold,
+                      onChanged: _searchQuery,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          fillColor: Colors.transparent,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 14.h),
+                          hintText: "Search",
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: AppColors.c_AFAFAF,
+                            size: 24.w,
+                          ),
+                          hintStyle: AppTextStyle.latoRegular.copyWith(
+                              fontSize: 18.w, color: AppColors.c_AFAFAF),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.c_AFAFAF),
+                              borderRadius: BorderRadius.circular(4.w)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.c_AFAFAF),
+                              borderRadius: BorderRadius.circular(4.w))),
+                    ),
                   ),
-                ),
                   10.getH(),
                   ...List.generate(tasks.length, (index) {
-                  TaskModel taskModel = tasks[index];
-                  return
-                    Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.w),
-                        color: AppColors.c_363636),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              taskModel.title,
-                              style: AppTextStyle.latoBold,
-                            ),
-                            Spacer(),
-                            Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-
-                                decoration: BoxDecoration(color: AppColors.c_FF9680,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(taskModel.category,style: AppTextStyle.latoBold,)),
-                            8.getW(),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: AppColors.c_8687E7),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(AppImages.flag, height: 24.h,),
-                                  5.getW(),
-                                  Text(
-                                    taskModel.priority.toString(),
-                                    style: AppTextStyle.latoBold,
-                                  ),
-                                ],
+                    TaskModel taskModel = tasks[index];
+                    return Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 24.w, vertical: 12.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 24.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.w),
+                          color: AppColors.c_363636),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                taskModel.title,
+                                style: AppTextStyle.latoBold,
                               ),
-                            ),
-                          ],
-                        ),
-                        8.getH(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "${taskModel.deadline.year.toString()}-${taskModel.deadline.month.toString().padLeft(2, '0')}-${taskModel.deadline.day.toString().padLeft(2, '0')} ${taskModel.deadline.hour.toString().padLeft(2, '0')}-${taskModel.deadline.minute.toString().padLeft(2, '0')}",
-                              style: AppTextStyle.latoBold
-                                  .copyWith(color: AppColors.c_AFAFAF),
-                            ),
-                            Spacer(),
-                            IconButton(
-                                onPressed: () {
-                                  updateTaskDialog(
-                                    context: context,
-                                    task: taskModel,
-                                    taskModelChanged: (updatedTask) async {
-                                      await LocalDatabase.updateTask(
-                                        updatedTask.copyWith(id: taskModel.id),
-                                        taskModel.id!,
-                                      );
-                                      _init();
-                                    },
-                                  );
-                                },
-                                icon: SvgPicture.asset(AppImages.edit, height: 24.h,)
-                            ),
-                            IconButton(
-                                onPressed: () async {
-                                  int d = await LocalDatabase.deleteTask(
-                                      taskModel.id!);
-                                  _init();
-                                },
-                                icon: SvgPicture.asset(AppImages.delete, height: 24.h,))
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                })],
+                              Spacer(),
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 6.h),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.c_FF9680,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    taskModel.category,
+                                    style: AppTextStyle.latoBold,
+                                  )),
+                              8.getW(),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w, vertical: 4.h),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: AppColors.c_8687E7),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppImages.flag,
+                                      height: 24.h,
+                                    ),
+                                    5.getW(),
+                                    Text(
+                                      taskModel.priority.toString(),
+                                      style: AppTextStyle.latoBold,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          8.getH(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${taskModel.deadline.year.toString()}-${taskModel.deadline.month.toString().padLeft(2, '0')}-${taskModel.deadline.day.toString().padLeft(2, '0')} ${taskModel.deadline.hour.toString().padLeft(2, '0')}-${taskModel.deadline.minute.toString().padLeft(2, '0')}",
+                                style: AppTextStyle.latoBold
+                                    .copyWith(color: AppColors.c_AFAFAF),
+                              ),
+                              Spacer(),
+                              IconButton(
+                                  onPressed: () {
+                                    updateTaskDialog(
+                                      context: context,
+                                      task: taskModel,
+                                      taskModelChanged: (updatedTask) async {
+                                        await LocalDatabase.updateTask(
+                                          updatedTask.copyWith(
+                                              id: taskModel.id),
+                                          taskModel.id!,
+                                        );
+                                        _init();
+                                      },
+                                    );
+                                  },
+                                  icon: SvgPicture.asset(
+                                    AppImages.edit,
+                                    height: 24.h,
+                                  )),
+                              IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                              backgroundColor:
+                                                  AppColors.c_272727,
+                                              content: Text(
+                                                'Are you sure you want to delete',
+                                                style: AppTextStyle.latoBold
+                                                    .copyWith(fontSize: 22.w),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              actions: [
+                                                Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 16.w),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        25.w,
+                                                                    vertical:
+                                                                        17.h),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.w),
+                                                              color: AppColors
+                                                                  .c_363636,
+                                                            ),
+                                                            child: Text(
+                                                              "No",
+                                                              style: AppTextStyle
+                                                                  .latoRegular
+                                                                  .copyWith(
+                                                                      color: AppColors
+                                                                          .c_8687E7),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        15.getW(),
+                                                        TextButton(
+                                                          onPressed: () async {
+                                                            int d = await LocalDatabase
+                                                                    .deleteTask(
+                                                                        taskModel
+                                                                            .id!);
+                                                            Navigator.pop(
+                                                                context);
+
+                                                            _init();
+
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        25.w,
+                                                                    vertical:
+                                                                        17.h),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.w),
+                                                              color: AppColors
+                                                                  .c_8687E7,
+                                                            ),
+                                                            child: Text(
+                                                              "Yes",
+                                                              style: AppTextStyle
+                                                                  .latoRegular,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ));
+                                  },
+
+                                  //
+                                  icon: SvgPicture.asset(
+                                    AppImages.delete,
+                                    height: 24.h,
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  })
+                ],
               ),
-          ),
+            ),
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
         child: Container(
-          decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.c_8687E7,),
-
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.c_8687E7,
+          ),
           height: 64.h,
           width: 64.w,
           child: FloatingActionButton(
-
             onPressed: () {
               addTaskDialog(
                 context: context,
