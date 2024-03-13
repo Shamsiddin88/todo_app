@@ -7,7 +7,6 @@ class CategoryModel {
   final String iconPath;
   final Color color;
 
-
   CategoryModel({
     this.id,
     required this.iconPath,
@@ -33,7 +32,7 @@ class CategoryModel {
       iconPath: json[CategoryModelConstants.iconPath] as String? ?? "",
       name: json[CategoryModelConstants.name] as String? ?? "",
       color:
-      Color(int.parse(json[CategoryModelConstants.color] as String? ?? "")),
+          Color(int.parse(json[CategoryModelConstants.color] as String? ?? "")),
       id: json[CategoryModelConstants.id] as int? ?? 0,
     );
   }

@@ -111,6 +111,4 @@ class StorageRepository {
       fit: BoxFit.fill,
     );
   }
-
-
 }

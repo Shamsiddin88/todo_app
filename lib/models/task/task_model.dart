@@ -1,7 +1,6 @@
 import 'package:todo_app/models/task/task_model_constants.dart';
 import 'package:todo_app/models/task/task_status.dart';
 
-
 class TaskModel {
   final int? id;
   final String title;
@@ -47,7 +46,7 @@ class TaskModel {
       status: getStatus(json[TaskModelConstants.status] as String? ?? ""),
       category: json[TaskModelConstants.category] as String? ?? "",
       deadline:
-      DateTime.parse(json[TaskModelConstants.deadline] as String? ?? ""),
+          DateTime.parse(json[TaskModelConstants.deadline] as String? ?? ""),
       priority: json[TaskModelConstants.priority] as int? ?? 1,
       id: json[TaskModelConstants.id] as int? ?? 0,
     );

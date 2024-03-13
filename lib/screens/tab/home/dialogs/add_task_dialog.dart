@@ -21,14 +21,14 @@ addTaskDialog({
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
 
-  int priority=1;
+  int priority = 1;
   String category = "work";
 
   final FocusNode focusNodeOne = FocusNode();
   final FocusNode focusNodeTwo = FocusNode();
 
   showModalBottomSheet(
-    isScrollControlled: true,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16.w), topRight: Radius.circular(16.w))),
@@ -36,7 +36,8 @@ addTaskDialog({
       builder: (context) {
         return StatefulBuilder(builder: (context, setState) {
           return Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
               decoration: BoxDecoration(
@@ -57,24 +58,25 @@ addTaskDialog({
                     style: AppTextStyle.latoBold,
                     focusNode: focusNodeOne,
                     onChanged: (v) {
-                     taskModel = taskModel.copyWith(title: v);
+                      taskModel = taskModel.copyWith(title: v);
                     },
                     textInputAction: TextInputAction.next,
                     controller: titleController,
                     decoration: InputDecoration(
-
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         fillColor: Colors.transparent,
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 14.h),
                         hintText: "Enter task",
-                        hintStyle: AppTextStyle.latoRegular
-                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
+                        hintStyle: AppTextStyle.latoRegular.copyWith(
+                            fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: AppColors.transparent),
+                            borderSide:
+                                const BorderSide(color: AppColors.transparent),
                             borderRadius: BorderRadius.circular(4.w)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: AppColors.c_AFAFAF),
+                            borderSide:
+                                const BorderSide(color: AppColors.c_AFAFAF),
                             borderRadius: BorderRadius.circular(4.w))),
                   ),
                   14.getH(),
@@ -84,7 +86,7 @@ addTaskDialog({
                     textInputAction: TextInputAction.done,
                     focusNode: focusNodeTwo,
                     onChanged: (v) {
-                     taskModel = taskModel.copyWith(description: v);
+                      taskModel = taskModel.copyWith(description: v);
                     },
                     controller: descriptionController,
                     decoration: InputDecoration(
@@ -95,13 +97,15 @@ addTaskDialog({
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 14.h),
                         hintText: "Enter Description",
-                        hintStyle: AppTextStyle.latoRegular
-                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
+                        hintStyle: AppTextStyle.latoRegular.copyWith(
+                            fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: AppColors.transparent),
+                            borderSide:
+                                const BorderSide(color: AppColors.transparent),
                             borderRadius: BorderRadius.circular(4.w)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: AppColors.c_AFAFAF),
+                            borderSide:
+                                const BorderSide(color: AppColors.c_AFAFAF),
                             borderRadius: BorderRadius.circular(4.w))),
                   ),
                   35.getH(),
@@ -110,9 +114,7 @@ addTaskDialog({
                     children: [
                       IconButton(
                           onPressed: () async {
-
                             dateTime = await showDatePicker(
-
                                 barrierColor: AppColors.c_363636,
                                 barrierDismissible: false,
                                 cancelText: "Cancel",
@@ -128,7 +130,10 @@ addTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.calendar,height: 24.h,)),
+                          icon: SvgPicture.asset(
+                            AppImages.calendar,
+                            height: 24.h,
+                          )),
                       IconButton(
                           onPressed: () async {
                             timeOfDay = await showTimePicker(
@@ -145,7 +150,7 @@ addTaskDialog({
                             );
                             if (timeOfDay != null) {
                               DateTime d = taskModel.deadline;
-                              d=d.copyWith(
+                              d = d.copyWith(
                                   hour: timeOfDay!.hour,
                                   minute: timeOfDay!.minute);
                               setState(() {
@@ -153,19 +158,22 @@ addTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.clock,height: 24.h)),
-
+                          icon:
+                              SvgPicture.asset(AppImages.clock, height: 24.h)),
                       IconButton(
                           onPressed: () async {
-                           showCategorySelectDialog(context: context, categorySelection: (selectedCategory) {
-                             setState((){
-                               category = selectedCategory;
-                                                            });
-                             taskModel = taskModel.copyWith(category: selectedCategory) ;
-
-                           }, category: category);
+                            showCategorySelectDialog(
+                                context: context,
+                                categorySelection: (selectedCategory) {
+                                  setState(() {
+                                    category = selectedCategory;
+                                  });
+                                  taskModel = taskModel.copyWith(
+                                      category: selectedCategory);
+                                },
+                                category: category);
                           },
-                          icon: SvgPicture.asset(AppImages.tag,height: 24.h)),
+                          icon: SvgPicture.asset(AppImages.tag, height: 24.h)),
                       IconButton(
                           onPressed: () {
                             showPrioritySelectDialog(
@@ -176,28 +184,22 @@ addTaskDialog({
                                     priority = p;
                                   });
                                   taskModel = taskModel.copyWith(priority: p);
-
-
                                 });
                           },
-                          icon: SvgPicture.asset(AppImages.flag,height: 24.h)),
+                          icon: SvgPicture.asset(AppImages.flag, height: 24.h)),
                       IconButton(
                           onPressed: () {
-                            if (taskModel.canAddTaskToDatabase()){
+                            if (taskModel.canAddTaskToDatabase()) {
                               showSuccessMessage("SUCCESS");
                               taskModelChanged.call(taskModel);
                               Navigator.pop(context);
-                            }
-                            else {
+                            } else {
                               showErrorMessage("ERROR");
                             }
-
                           },
-                          icon: SvgPicture.asset(AppImages.next,height: 24.h)),
+                          icon: SvgPicture.asset(AppImages.next, height: 24.h)),
                     ],
                   ),
-
-
                 ],
               ),
             ),

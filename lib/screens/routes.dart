@@ -26,7 +26,8 @@ class AppRoutes {
         }
       case RouteNames.changeImage:
         {
-          return MaterialPageRoute(builder: (context) => const ChangeImageScreen());
+          return MaterialPageRoute(
+              builder: (context) => const ChangeImageScreen());
         }
 
       case RouteNames.updateCategory:
@@ -39,7 +40,7 @@ class AppRoutes {
           return MaterialPageRoute(builder: (context) => TabBox());
         }
 
-     default:
+      default:
         {
           return MaterialPageRoute(
             builder: (context) => Scaffold(
@@ -52,19 +53,17 @@ class AppRoutes {
     }
   }
 
-static navigate (Widget widget) {
-    return MaterialPageRoute(builder: (context)=> widget);
+  static navigate(Widget widget) {
+    return MaterialPageRoute(builder: (context) => widget);
+  }
 }
-}
 
-class RouteNames{
-    static const String splash = "/";
-    static const String tabBox = "/tab_route";
-    static const String onboard = "/on_board_route";
-    static const String addCategory = "/add_category_route";
-    static const String updateCategory = "/update_category_route";
-    static const String changeImage = "/change_image_route";
-    static const String taskRoute = "/task_route";
-
-
+class RouteNames {
+  static const String splash = "/";
+  static const String tabBox = "/tab_route";
+  static const String onboard = "/on_board_route";
+  static const String addCategory = "/add_category_route";
+  static const String updateCategory = "/update_category_route";
+  static const String changeImage = "/change_image_route";
+  static const String taskRoute = "/task_route";
 }

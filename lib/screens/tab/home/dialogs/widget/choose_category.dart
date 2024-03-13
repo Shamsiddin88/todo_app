@@ -11,7 +11,8 @@ class ChooseCategory extends StatelessWidget {
       this.color,
       required this.colorItem,
       required this.name,
-      required this.onTap, required this.onDoubleTap});
+      required this.onTap,
+      required this.onDoubleTap});
 
   final String iconPath;
   final Color? color;
@@ -27,8 +28,9 @@ class ChooseCategory extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.w),
-            color: color,),
+          borderRadius: BorderRadius.circular(4.w),
+          color: color,
+        ),
         child: Column(
           children: [
             10.getH(),
@@ -37,8 +39,7 @@ class ChooseCategory extends StatelessWidget {
               width: 64.w,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.w),
-                  color: colorItem),
+                  borderRadius: BorderRadius.circular(4.w), color: colorItem),
               child: SvgPicture.asset(iconPath),
             ),
             5.getH(),

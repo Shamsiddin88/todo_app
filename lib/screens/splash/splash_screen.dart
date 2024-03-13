@@ -17,34 +17,39 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-
-
   void initState() {
     StorageRepository();
-    bool isEnteredBefore = StorageRepository.getBool(key: StorageKeys.onBoardingRoute);
+    bool isEnteredBefore =
+        StorageRepository.getBool(key: StorageKeys.onBoardingRoute);
     print("ON BOARDING State: $isEnteredBefore");
     Future.delayed(const Duration(seconds: 3), () {
-      if (isEnteredBefore)
-     { Navigator.pushNamed(context, RouteNames.tabBox);}
-      else {Navigator.pushNamed(context, RouteNames.onboard);}
+      if (isEnteredBefore) {
+        Navigator.pushNamed(context, RouteNames.tabBox);
+      } else {
+        Navigator.pushNamed(context, RouteNames.onboard);
+      }
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    width=MediaQuery.of(context).size.width;
-    height=MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          SvgPicture.asset(AppImages.logo, height: 80.h,),
-          19.getH(),
-          Text("UpTodo", style:AppTextStyle.latoBold.copyWith(fontSize: 40.w)),
-        ],),
+            SvgPicture.asset(
+              AppImages.logo,
+              height: 80.h,
+            ),
+            19.getH(),
+            Text("UpTodo",
+                style: AppTextStyle.latoBold.copyWith(fontSize: 40.w)),
+          ],
+        ),
       ),
     );
   }

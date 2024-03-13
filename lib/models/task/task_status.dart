@@ -1,6 +1,1 @@
-enum TaskStatus {
-  processing,
-  done,
-  canceled,
-  missed
-}
+enum TaskStatus { processing, done, canceled, missed }

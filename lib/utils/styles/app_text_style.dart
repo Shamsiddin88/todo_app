@@ -27,7 +27,6 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
     fontSize: 16.w,
     color: AppColors.white,
-
   );
 
   static TextStyle latoSemiBold = TextStyle(
@@ -35,7 +34,6 @@ class AppTextStyle {
     fontWeight: FontWeight.w600,
     fontSize: 16.w,
     color: AppColors.white,
-
   );
 
   static TextStyle latoBold = TextStyle(
@@ -43,7 +41,6 @@ class AppTextStyle {
     fontWeight: FontWeight.w700,
     fontSize: 16.w,
     color: AppColors.white,
-
   );
 
   static TextStyle latoBlack = TextStyle(
@@ -51,6 +48,5 @@ class AppTextStyle {
     fontWeight: FontWeight.w800,
     fontSize: 16.w,
     color: AppColors.white,
-
   );
 }

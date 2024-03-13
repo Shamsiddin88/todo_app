@@ -40,13 +40,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     debugPrint("O'qib olingan ${StorageRepository.getString(key: "image")}");
   }
+
   String? profileName;
-  _init(){
-    profileName=StorageRepository.getString(key: "profileName");
-    setState(() {
-    });
+  _init() {
+    profileName = StorageRepository.getString(key: "profileName");
+    setState(() {});
   }
-String name = "";
+
+  String name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +90,9 @@ String name = "";
                 ),
                 20.getH(),
                 Text(
-                  profileName?? "Your profile name",
+                  profileName ?? "Your profile name",
                   style: AppTextStyle.latoMedium.copyWith(fontSize: 20.w),
                 ),
-
               ],
             )),
             24.getH(),
@@ -129,17 +129,22 @@ String name = "";
                 iconPath: AppImages.profile,
                 title: "Change account Name",
                 onTab: () {
-                  showModalBottomSheet(isScrollControlled: true,
+                  showModalBottomSheet(
+                      isScrollControlled: true,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16.w), topRight: Radius.circular(16.w))),
+                              topLeft: Radius.circular(16.w),
+                              topRight: Radius.circular(16.w))),
                       context: context,
                       builder: (context) {
                         return StatefulBuilder(builder: (context, setState) {
                           return Padding(
-                            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25.w, vertical: 25.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(16.w),
@@ -151,35 +156,45 @@ String name = "";
                                 children: [
                                   Text(
                                     "Account name",
-                                    style: AppTextStyle.latoBold.copyWith(fontSize: 20.w),
+                                    style: AppTextStyle.latoBold
+                                        .copyWith(fontSize: 20.w),
                                   ),
                                   14.getH(),
                                   TextField(
                                     style: AppTextStyle.latoBold,
                                     onChanged: (v) {
-                                      name=v;
-                                      StorageRepository.setString(key: "profileName", value: name);
+                                      name = v;
+                                      StorageRepository.setString(
+                                          key: "profileName", value: name);
                                     },
                                     decoration: InputDecoration(
-
-                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
                                         fillColor: Colors.transparent,
                                         contentPadding: EdgeInsets.symmetric(
                                             horizontal: 12.w, vertical: 14.h),
                                         hintText: "Enter you new profile name",
                                         hintStyle: AppTextStyle.latoRegular
-                                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
+                                            .copyWith(
+                                                fontSize: 18.w,
+                                                color: AppColors.c_AFAFAF),
                                         enabledBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(color: AppColors.transparent),
-                                            borderRadius: BorderRadius.circular(4.w)),
+                                            borderSide: const BorderSide(
+                                                color: AppColors.transparent),
+                                            borderRadius:
+                                                BorderRadius.circular(4.w)),
                                         focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(color: AppColors.c_AFAFAF),
-                                            borderRadius: BorderRadius.circular(4.w))),
+                                            borderSide: const BorderSide(
+                                                color: AppColors.c_AFAFAF),
+                                            borderRadius:
+                                                BorderRadius.circular(4.w))),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextButton(
                                           onPressed: () {
@@ -187,32 +202,36 @@ String name = "";
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 37.w, vertical: 17.h),
+                                                horizontal: 37.w,
+                                                vertical: 17.h),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4.w),
+                                              borderRadius:
+                                                  BorderRadius.circular(4.w),
                                               color: AppColors.c_363636,
                                             ),
                                             child: Text(
                                               "Cancel",
                                               style: AppTextStyle.latoRegular
-                                                  .copyWith(color: AppColors.c_8687E7),
+                                                  .copyWith(
+                                                      color:
+                                                          AppColors.c_8687E7),
                                             ),
                                           ),
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            setState((){
+                                            setState(() {
                                               _init();
-
                                             });
                                             Navigator.pop(context);
-
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 37.w, vertical: 17.h),
+                                                horizontal: 37.w,
+                                                vertical: 17.h),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4.w),
+                                              borderRadius:
+                                                  BorderRadius.circular(4.w),
                                               color: AppColors.c_8687E7,
                                             ),
                                             child: Text(
@@ -224,76 +243,78 @@ String name = "";
                                       ],
                                     ),
                                   )
-
-
-
                                 ],
                               ),
                             ),
                           );
                         });
-                      } );
-
+                      });
                 }),
             16.getH(),
             TextButton(
-              onPressed: ()
-              {
+              onPressed: () {
                 showDialog(
                     context: context,
-                    builder: (BuildContext context) =>AlertDialog(
-                      backgroundColor: AppColors.c_272727,
-                      content: Text('Are you sure you want to log out ?', style: AppTextStyle.latoBold.copyWith(fontSize: 22.w),textAlign: TextAlign.center,),
-                      actions: [
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 25.w, vertical: 17.h),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.w),
-                                      color: AppColors.c_363636,
-                                    ),
-                                    child: Text(
-                                      "No",
-                                      style: AppTextStyle.latoRegular
-                                          .copyWith(color: AppColors.c_8687E7),
-                                    ),
-                                  ),
-                                ),
-                                15.getW(),
-                                TextButton(
-                                  onPressed: () {
-                                    SystemNavigator.pop();
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 25.w, vertical: 17.h),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.w),
-                                      color: AppColors.c_8687E7,
-                                    ),
-                                    child: Text(
-                                      "Yes",
-                                      style: AppTextStyle.latoRegular,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    builder: (BuildContext context) => AlertDialog(
+                          backgroundColor: AppColors.c_272727,
+                          content: Text(
+                            'Are you sure you want to log out ?',
+                            style:
+                                AppTextStyle.latoBold.copyWith(fontSize: 22.w),
+                            textAlign: TextAlign.center,
                           ),
-                        )
-                      ],
-                    ));
-
+                          actions: [
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 25.w, vertical: 17.h),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4.w),
+                                          color: AppColors.c_363636,
+                                        ),
+                                        child: Text(
+                                          "No",
+                                          style: AppTextStyle.latoRegular
+                                              .copyWith(
+                                                  color: AppColors.c_8687E7),
+                                        ),
+                                      ),
+                                    ),
+                                    15.getW(),
+                                    TextButton(
+                                      onPressed: () {
+                                        SystemNavigator.pop();
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 25.w, vertical: 17.h),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4.w),
+                                          color: AppColors.c_8687E7,
+                                        ),
+                                        child: Text(
+                                          "Yes",
+                                          style: AppTextStyle.latoRegular,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ));
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),

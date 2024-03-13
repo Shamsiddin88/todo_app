@@ -21,9 +21,9 @@ updateTaskDialog({
   TaskModel taskModel = task;
 
   final TextEditingController titleController =
-  TextEditingController(text: taskModel.title);
+      TextEditingController(text: taskModel.title);
   final TextEditingController descriptionController =
-  TextEditingController(text: taskModel.description);
+      TextEditingController(text: taskModel.description);
 
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
@@ -42,7 +42,8 @@ updateTaskDialog({
       builder: (context) {
         return StatefulBuilder(builder: (context, setState) {
           return Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
               decoration: BoxDecoration(
@@ -68,16 +69,16 @@ updateTaskDialog({
                     textInputAction: TextInputAction.next,
                     controller: titleController,
                     decoration: InputDecoration(
-
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         fillColor: Colors.transparent,
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 14.h),
                         hintText: "Enter task",
-                        hintStyle: AppTextStyle.latoRegular
-                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
+                        hintStyle: AppTextStyle.latoRegular.copyWith(
+                            fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.transparent),
+                            borderSide:
+                                BorderSide(color: AppColors.transparent),
                             borderRadius: BorderRadius.circular(4.w)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: AppColors.c_AFAFAF),
@@ -97,14 +98,15 @@ updateTaskDialog({
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         fillColor: Colors.transparent,
                         labelStyle:
-                        AppTextStyle.latoRegular.copyWith(fontSize: 18.w),
+                            AppTextStyle.latoRegular.copyWith(fontSize: 18.w),
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 14.h),
                         hintText: "Enter Description",
-                        hintStyle: AppTextStyle.latoRegular
-                            .copyWith(fontSize: 18.w, color: AppColors.c_AFAFAF),
+                        hintStyle: AppTextStyle.latoRegular.copyWith(
+                            fontSize: 18.w, color: AppColors.c_AFAFAF),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.transparent),
+                            borderSide:
+                                BorderSide(color: AppColors.transparent),
                             borderRadius: BorderRadius.circular(4.w)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: AppColors.c_AFAFAF),
@@ -132,7 +134,10 @@ updateTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.calendar, height: 24.h,)),
+                          icon: SvgPicture.asset(
+                            AppImages.calendar,
+                            height: 24.h,
+                          )),
                       IconButton(
                           onPressed: () async {
                             timeOfDay = await showTimePicker(
@@ -157,17 +162,20 @@ updateTaskDialog({
                               });
                             }
                           },
-                          icon: SvgPicture.asset(AppImages.clock, height: 24.h)),
-
+                          icon:
+                              SvgPicture.asset(AppImages.clock, height: 24.h)),
                       IconButton(
                           onPressed: () async {
-                            showCategorySelectDialog(context: context, categorySelection: (selectedCategory) {
-                              setState((){
-                                category = selectedCategory;
-                              });
-                              taskModel = taskModel.copyWith(category: selectedCategory) ;
-
-                            }, category: category);
+                            showCategorySelectDialog(
+                                context: context,
+                                categorySelection: (selectedCategory) {
+                                  setState(() {
+                                    category = selectedCategory;
+                                  });
+                                  taskModel = taskModel.copyWith(
+                                      category: selectedCategory);
+                                },
+                                category: category);
                           },
                           icon: SvgPicture.asset(AppImages.tag, height: 24.h)),
                       IconButton(
@@ -180,29 +188,23 @@ updateTaskDialog({
                                     priority = p;
                                   });
                                   taskModel = taskModel.copyWith(priority: p);
-
-
-
                                 });
                           },
                           icon: SvgPicture.asset(AppImages.flag, height: 24.h)),
                       IconButton(
                           onPressed: () {
-                            if (taskModel.canAddTaskToDatabase()){
+                            if (taskModel.canAddTaskToDatabase()) {
                               print(taskModel.title);
                               showSuccessMessage("SUCCESS");
                               taskModelChanged.call(taskModel);
                               Navigator.pop(context);
-                            }
-                            else {
+                            } else {
                               showErrorMessage("ERROR");
                             }
                           },
                           icon: SvgPicture.asset(AppImages.next, height: 24.h)),
                     ],
                   ),
-
-
                 ],
               ),
             ),

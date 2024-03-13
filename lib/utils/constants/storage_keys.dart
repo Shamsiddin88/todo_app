@@ -1,3 +1,3 @@
 class StorageKeys {
-  static const String onBoardingRoute="on_board_route";
+  static const String onBoardingRoute = "on_board_route";
 }

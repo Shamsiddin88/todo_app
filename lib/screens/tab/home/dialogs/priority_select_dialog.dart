@@ -9,7 +9,8 @@ import '../../../../utils/images/app_images.dart';
 showPrioritySelectDialog({
   required BuildContext context,
   required ValueChanged<int> priority,
-  required int p,}) {
+  required int p,
+}) {
   int pr = p;
 
   showDialog(
@@ -98,7 +99,6 @@ showPrioritySelectDialog({
                           onPressed: () {
                             priority.call(pr);
                             Navigator.pop(context);
-
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(

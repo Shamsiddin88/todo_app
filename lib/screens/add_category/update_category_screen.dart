@@ -9,12 +9,9 @@ import '../../models/category/category_model.dart';
 import '../../utils/colors/app_colors.dart';
 
 class UpdateCategoryScreen extends StatefulWidget {
-   const UpdateCategoryScreen(
-      {super.key, required this.id});
+  const UpdateCategoryScreen({super.key, required this.id});
 
-   final int id;
-
-
+  final int id;
 
   @override
   State<UpdateCategoryScreen> createState() => _UpdateCategoryScreenState();
@@ -50,22 +47,18 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
     AppColors.c_FF80EB
   ];
 
-  List <CategoryModel> categories = [];
+  List<CategoryModel> categories = [];
 
-
-  _init ()async{
+  _init() async {
     await LocalDatabase.updateCategory(categoryModel, 10);
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   @override
   void initState() {
     _init();
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +114,8 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                       (index) => IconButton(
                             onPressed: () {
                               String icon = icons[index];
-                              categoryModel = categoryModel.copyWith(iconPath: icon);
+                              categoryModel =
+                                  categoryModel.copyWith(iconPath: icon);
 
                               setState(() {
                                 activeIconIndex = index;
@@ -150,7 +144,8 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                       (index) => IconButton(
                             onPressed: () {
                               Color color = colors[index];
-                              categoryModel = categoryModel.copyWith(color: color);
+                              categoryModel =
+                                  categoryModel.copyWith(color: color);
                               setState(() {
                                 activeColorIndex = index;
                               });
@@ -186,8 +181,8 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                   Navigator.pop(context);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 37.w, vertical: 17.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 37.w, vertical: 17.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4.w),
                     color: AppColors.c_363636,
@@ -204,17 +199,16 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                   print(categoryModel.iconPath);
                   print(categoryModel.color);
                   print(categoryModel.name);
-                  if (categoryModel.canAddCategoryToDatabase()){
-
-                    await LocalDatabase.updateCategory(categoryModel,widget.id!);
+                  if (categoryModel.canAddCategoryToDatabase()) {
+                    await LocalDatabase.updateCategory(
+                        categoryModel, widget.id!);
                     _init();
                     Navigator.pop(context);
                   }
-
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 20.w, vertical: 17.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4.w),
                     color: AppColors.c_8687E7,
@@ -229,85 +223,86 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
           ),
           TextButton(
             onPressed: () {
-
               showDialog(
-              context: context,
-              builder: (BuildContext context) =>AlertDialog(
-                backgroundColor: AppColors.c_272727,
-                content: Text('Are you sure you want to delete', style: AppTextStyle.latoBold.copyWith(fontSize: 22.w),textAlign: TextAlign.center,),
-                actions: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 25.w, vertical: 17.h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.w),
-                                color: AppColors.c_363636,
-                              ),
-                              child: Text(
-                                "No",
-                                style: AppTextStyle.latoRegular
-                                    .copyWith(color: AppColors.c_8687E7),
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: AppColors.c_272727,
+                        content: Text(
+                          'Are you sure you want to delete',
+                          style: AppTextStyle.latoBold.copyWith(fontSize: 22.w),
+                          textAlign: TextAlign.center,
+                        ),
+                        actions: [
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 25.w, vertical: 17.h),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.w),
+                                        color: AppColors.c_363636,
+                                      ),
+                                      child: Text(
+                                        "No",
+                                        style: AppTextStyle.latoRegular
+                                            .copyWith(
+                                                color: AppColors.c_8687E7),
+                                      ),
+                                    ),
+                                  ),
+                                  15.getW(),
+                                  TextButton(
+                                    onPressed: () async {
+                                      await LocalDatabase.deleteCategory(
+                                          widget.id!);
+                                      _init();
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 25.w, vertical: 17.h),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.w),
+                                        color: AppColors.c_8687E7,
+                                      ),
+                                      child: Text(
+                                        "Yes",
+                                        style: AppTextStyle.latoRegular,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          15.getW(),
-                          TextButton(
-                            onPressed: () async {
-
-                              await LocalDatabase.deleteCategory(widget.id!);
-                              _init();
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-
-
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 25.w, vertical: 17.h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.w),
-                                color: AppColors.c_8687E7,
-                              ),
-                              child: Text(
-                                "Yes",
-                                style: AppTextStyle.latoRegular,
-                              ),
-                            ),
-                          ),
+                          )
                         ],
-                      ),
-                    ),
-                  )
-                ],
-              ));},
-
-
-
+                      ));
+            },
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20.w, vertical: 17.h),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.w),
                 color: Colors.red,
               ),
               child: Text(
                 "Delete Category",
-                style: AppTextStyle.latoRegular,textAlign: TextAlign.center,
+                style: AppTextStyle.latoRegular,
+                textAlign: TextAlign.center,
               ),
             ),
           ),
-
         ]),
       ),
     );

@@ -5,7 +5,11 @@ import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/styles/app_text_style.dart';
 
 class ProfileItems extends StatelessWidget {
-  const ProfileItems({super.key, required this.iconPath, required this.title, required this.onTab});
+  const ProfileItems(
+      {super.key,
+      required this.iconPath,
+      required this.title,
+      required this.onTab});
 
   final String iconPath;
   final String title;

@@ -12,13 +12,10 @@ extension ParseToStringDate on int {
     return DateFormat.E().format(dateTime);
   }
 
-
-
   String getParsedOnlyDay() {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(this * 1000);
     return DateFormat.EEEE().format(dateTime);
   }
-
 
   String getParsedHour() {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(this * 1000);
@@ -33,7 +30,7 @@ extension ColorExtension on String {
       hexColor = "FF$hexColor";
     }
     if (hexColor.length == 8) {
-    return Color(int.parse("0x$hexColor"));
+      return Color(int.parse("0x$hexColor"));
     }
-    }
+  }
 }

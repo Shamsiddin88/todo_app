@@ -22,7 +22,7 @@ showCategorySelectDialog({
 }) async {
   String selectedCategory = category;
 
-   List<CategoryModel> categories = [
+  List<CategoryModel> categories = [
     CategoryModel(
         name: "Grocery",
         iconPath: AppImages.grocery,
@@ -51,12 +51,12 @@ showCategorySelectDialog({
   // debugPrint("QO'SHILGAN ID:${savedCategories[0].id.toString()}");
   final savedCategories = await getDataItems();
 
-if (!context.mounted) return;
+  if (!context.mounted) return;
   showDialog(
       context: context,
       builder: (context) {
         return StatefulBuilder(builder: (context, setState) {
-          setState((){});
+          setState(() {});
           return Container(
               width: double.infinity,
               margin:
@@ -81,56 +81,59 @@ if (!context.mounted) return;
                         crossAxisCount: 3,
                         children: [
                           ...List.generate(categories.length, (index) {
-                            return
-                              ChooseCategory(
-                                  iconPath: categories[index].iconPath,
-                                  color:
-                                      categories[index].name == selectedCategory
-                                          ? AppColors.c_8687E7
-                                          : AppColors.transparent,
-                                  colorItem: categories[index].color,
-                                  name: categories[index].name,
-                                  onTap: () {
-                                    setState(() {
-                                      selectedCategory = categories[index].name;
-                                    });
-                                  }, onDoubleTap: () async {
+                            return ChooseCategory(
+                              iconPath: categories[index].iconPath,
+                              color: categories[index].name == selectedCategory
+                                  ? AppColors.c_8687E7
+                                  : AppColors.transparent,
+                              colorItem: categories[index].color,
+                              name: categories[index].name,
+                              onTap: () {
+                                setState(() {
+                                  selectedCategory = categories[index].name;
+                                });
+                              },
+                              onDoubleTap: () async {
                                 int d = await LocalDatabase.deleteCategory(
                                     categoryModel.id!);
-
-                              },);
+                              },
+                            );
                           }),
                           ...List.generate(savedCategories.length, (index) {
-                            return
-                              ChooseCategory(
-                                  iconPath: savedCategories[index].iconPath,
-                                  color:  savedCategories[index].name == selectedCategory
-                                          ? AppColors.c_8687E7
-                                          : AppColors.transparent,
-                                  colorItem: savedCategories[index].color,
-                                  name: savedCategories[index].name,
-                                  onTap: () {
-                                    setState(() {
-                                      selectedCategory = savedCategories[index].name;
-
-                                    });
-                                  },
-                                onDoubleTap: () async {
-                                  Navigator.pushReplacementNamed(context, RouteNames.updateCategory, arguments:savedCategories[index].id );
-
-                              },);
+                            return ChooseCategory(
+                              iconPath: savedCategories[index].iconPath,
+                              color: savedCategories[index].name ==
+                                      selectedCategory
+                                  ? AppColors.c_8687E7
+                                  : AppColors.transparent,
+                              colorItem: savedCategories[index].color,
+                              name: savedCategories[index].name,
+                              onTap: () {
+                                setState(() {
+                                  selectedCategory =
+                                      savedCategories[index].name;
+                                });
+                              },
+                              onDoubleTap: () async {
+                                Navigator.pushReplacementNamed(
+                                    context, RouteNames.updateCategory,
+                                    arguments: savedCategories[index].id);
+                              },
+                            );
                           }),
                           ChooseCategory(
-                              iconPath: AppImages.add,
-                              colorItem: AppColors.c_80FFD1,
-                              name: "Create New",
-                              onTap: () {
-                                Navigator.pushReplacementNamed(
-                                    context, RouteNames.addCategory);
-                              }, onDoubleTap: () async {
-                            int d = await LocalDatabase.deleteCategory(
-                                categoryModel.id!);
-                          },)
+                            iconPath: AppImages.add,
+                            colorItem: AppColors.c_80FFD1,
+                            name: "Create New",
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                  context, RouteNames.addCategory);
+                            },
+                            onDoubleTap: () async {
+                              int d = await LocalDatabase.deleteCategory(
+                                  categoryModel.id!);
+                            },
+                          )
                         ]),
                   ),
                   Padding(

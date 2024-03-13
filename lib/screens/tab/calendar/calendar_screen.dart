@@ -58,89 +58,111 @@ class _CalendarScreenState extends State<CalendarScreen> {
           child: Column(
             children: [
               70.getH(),
-              Text("Calendar", style: AppTextStyle.latoBold.copyWith(fontSize: 22),),
+              Text(
+                "Calendar",
+                style: AppTextStyle.latoBold.copyWith(fontSize: 22),
+              ),
               16.getH(),
               Container(
                   child: TableCalendar(
-                    calendarStyle: CalendarStyle(
-                      defaultTextStyle:TextStyle(color: Colors.blue),
-                      weekNumberTextStyle:TextStyle(color: Colors.red),
-                      weekendTextStyle:TextStyle(color: Colors.pink),
-                      holidayTextStyle: TextStyle(color: Colors.pink),
-                    ),
-                headerStyle:
-                    HeaderStyle(formatButtonTextStyle: AppTextStyle.latoMedium,formatButtonVisible: false, titleCentered: true,titleTextStyle: AppTextStyle.latoBold, decoration: BoxDecoration(color: AppColors.c_363636, borderRadius: BorderRadius.circular(4.w))),
+                calendarStyle: CalendarStyle(
+                  defaultTextStyle: TextStyle(color: Colors.blue),
+                  weekNumberTextStyle: TextStyle(color: Colors.red),
+                  weekendTextStyle: TextStyle(color: Colors.pink),
+                  holidayTextStyle: TextStyle(color: Colors.pink),
+                ),
+                headerStyle: HeaderStyle(
+                    formatButtonTextStyle: AppTextStyle.latoMedium,
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    titleTextStyle: AppTextStyle.latoBold,
+                    decoration: BoxDecoration(
+                        color: AppColors.c_363636,
+                        borderRadius: BorderRadius.circular(4.w))),
                 onDaySelected: _onDaySelected,
                 selectedDayPredicate: (day) => isSameDay(day, today),
                 focusedDay: today,
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 10, 16),
               )),
-             Column(
+              Column(
                 children: selectTasks.isEmpty
-                    ? [Text('No tasks for selected day',style: AppTextStyle.latoSemiBold,)]
+                    ? [
+                        Text(
+                          'No tasks for selected day',
+                          style: AppTextStyle.latoSemiBold,
+                        )
+                      ]
                     : List.generate(
                         selectTasks.length,
-                        (index) =>
-                            Container(
-                              margin:
-                              EdgeInsets.symmetric(vertical: 12.h),
-                              padding:
-                              EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4.w),
-                                  color: AppColors.c_363636),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        (index) => Container(
+                          margin: EdgeInsets.symmetric(vertical: 12.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24.w, vertical: 12.h),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.w),
+                              color: AppColors.c_363636),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        selectTasks[index].title,
-                                        style: AppTextStyle.latoBold,
-                                      ),
-                                      Spacer(),
-                                      Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-
-                                          decoration: BoxDecoration(color: AppColors.c_FF9680,
-                                            borderRadius: BorderRadius.circular(4),
-                                          ),
-                                          child: Text(selectTasks[index].category,style: AppTextStyle.latoBold,)),
-                                      8.getW(),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(4),
-                                            color: AppColors.c_8687E7),
-                                        child: Row(
-                                          children: [
-                                            SvgPicture.asset(AppImages.flag, height: 24.h,),
-                                            5.getW(),
-                                            Text(
-                                              selectTasks[index].priority.toString(),
-                                              style: AppTextStyle.latoBold,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    selectTasks[index].title,
+                                    style: AppTextStyle.latoBold,
                                   ),
-                                  8.getH(),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "${selectTasks[index].deadline.year.toString()}-${selectTasks[index].deadline.month.toString().padLeft(2, '0')}-${selectTasks[index].deadline.day.toString().padLeft(2, '0')} ${selectTasks[index].deadline.hour.toString().padLeft(2, '0')}-${selectTasks[index].deadline.minute.toString().padLeft(2, '0')}",
-                                        style: AppTextStyle.latoBold
-                                            .copyWith(color: AppColors.c_AFAFAF),
+                                  Spacer(),
+                                  Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w, vertical: 6.h),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.c_FF9680,
+                                        borderRadius: BorderRadius.circular(4),
                                       ),
-
-                                    ],
+                                      child: Text(
+                                        selectTasks[index].category,
+                                        style: AppTextStyle.latoBold,
+                                      )),
+                                  8.getW(),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10.w, vertical: 4.h),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: AppColors.c_8687E7),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          AppImages.flag,
+                                          height: 24.h,
+                                        ),
+                                        5.getW(),
+                                        Text(
+                                          selectTasks[index]
+                                              .priority
+                                              .toString(),
+                                          style: AppTextStyle.latoBold,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                              8.getH(),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${selectTasks[index].deadline.year.toString()}-${selectTasks[index].deadline.month.toString().padLeft(2, '0')}-${selectTasks[index].deadline.day.toString().padLeft(2, '0')} ${selectTasks[index].deadline.hour.toString().padLeft(2, '0')}-${selectTasks[index].deadline.minute.toString().padLeft(2, '0')}",
+                                    style: AppTextStyle.latoBold
+                                        .copyWith(color: AppColors.c_AFAFAF),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
               )
             ],

@@ -271,7 +271,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         15.getW(),
                                                         TextButton(
                                                           onPressed: () async {
-                                                            int d = await LocalDatabase
+                                                            int d =
+                                                                await LocalDatabase
                                                                     .deleteTask(
                                                                         taskModel
                                                                             .id!);
@@ -279,7 +280,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 context);
 
                                                             _init();
-
                                                           },
                                                           child: Container(
                                                             padding: EdgeInsets

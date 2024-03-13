@@ -1,8 +1,11 @@
 class AppImages {
   //.png
-  static const String onboardingImageOne = "assets/images/onboarding_image_one.png";
-  static const String onboardingImageTwo = "assets/images/onboarding_image_two.png";
-  static const String onboardingImageThree = "assets/images/onboarding_image_three.png";
+  static const String onboardingImageOne =
+      "assets/images/onboarding_image_one.png";
+  static const String onboardingImageTwo =
+      "assets/images/onboarding_image_two.png";
+  static const String onboardingImageThree =
+      "assets/images/onboarding_image_three.png";
   static const String profileOne = "assets/images/profile.png";
   static const String homeImage = "assets/images/home_image.png";
 
